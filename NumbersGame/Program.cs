@@ -11,7 +11,7 @@
 
             int numberToSend = 0;
             
-            switch (selectDiff)
+            switch (selectDiff) 
             {
                 case 1:
                     numberToSend = random.Next(1, 21);
@@ -20,7 +20,7 @@
                     numberToSend = random.Next(1, 41);
                     break;
                 case 3:
-                    numberToSend = random.Next(50, 61);
+                    numberToSend = random.Next(1, 61);
                     break;
             }
 
