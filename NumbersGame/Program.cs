@@ -1,4 +1,6 @@
-﻿namespace NumbersGame
+﻿using System.Text;
+
+namespace NumbersGame
 {
     internal class Program
     {
@@ -7,27 +9,51 @@
             Random random = new Random();
 
             Console.WriteLine("Hej välj en svårighetsgrad");
-            int selectDiff = int.Parse(Console.ReadLine());
+            Console.WriteLine("Tryck 1 för lätt");
+            Console.WriteLine("Tryck 2 för mellan");
+            Console.WriteLine("Tryck 3 för svårt");
+            Console.WriteLine("Tryck 4 för att avsluta");
+            int diff;
 
-            int numberToSend = 0;
-            
-            switch (selectDiff) 
+            while (true)
             {
-                case 1:
-                    numberToSend = random.Next(1, 21);
-                    break;
-                case 2:
-                    numberToSend = random.Next(1, 41);
-                    break;
-                case 3:
-                    numberToSend = random.Next(1, 61);
-                    break;
-            }
+                if (int.TryParse(Console.ReadLine(), out diff))
+                {
 
-            Console.WriteLine("Välkommen! jag tänker på ett nummer. Kan du gissa vilket?");
-            Console.WriteLine("Du får fem försök");
+                    if (diff <= 3 && diff > 0)
+                    {
+                        int numberToSend = 0;
+                        switch (diff)
+                        {
+                            case 1:
+                                numberToSend = random.Next(1, 21);
+                                break;
+                            case 2:
+                                numberToSend = random.Next(1, 41);
+                                break;
+                            case 3:
+                                numberToSend = random.Next(1, 61);
+                                break;
+                        }
+                        Console.WriteLine("Välkommen! jag tänker på ett nummer. Kan du gissa vilket?");
+                        Console.WriteLine("Du får fem försök");
+
+                        CheckGuess(numberToSend);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("välj mellan 1 och 3");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("inte ett gilltigt tal");
+                }
+            }
             
-            CheckGuess(numberToSend);
+
+            
         }
 
         
@@ -40,31 +66,42 @@
 
             while (wrongGuess < 5)
             {
-                int guess = int.Parse(Console.ReadLine()); ;
-                if (guess == numberToGuess)
+                int guess;
+                bool numberGuessed = int.TryParse(Console.ReadLine(), out guess);
+                if (numberGuessed)
                 {
-                    Console.WriteLine("Du gissade rätt!");
-                    break;
-                }
-                if(guess < numberToGuess)
-                {
-                    Console.WriteLine("Tyvärr du gissade för lågt!");
-                    Console.WriteLine("Försök igen");
-                    wrongGuess++;
+                    if (guess == numberToGuess)
+                    {
+                        Console.WriteLine("Du gissade rätt!");
+                        break;
+                    }
+                    if (guess < numberToGuess)
+                    {
+                        Console.WriteLine("Tyvärr du gissade för lågt!");
+                        Console.WriteLine("Försök igen");
+                        wrongGuess++;
 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Tyvärr du gissade för högt!");
+                        wrongGuess++;
+                    }
+                    if (wrongGuess == 5)
+                    {
+                        Console.WriteLine($"Tyvärr du färlorade rätt nummer va: {numberToGuess}");
+                        Console.WriteLine("Tack för att du spelade!");
+                    }
                 }
-                if (guess > numberToGuess)
+                else
                 {
-                    Console.WriteLine("Tyvärr du gissade för högt!");
-                    wrongGuess++;
+                    Console.WriteLine("skriv ett tal tack");
                 }
-                if (wrongGuess == 5)
-                {
-                    Console.WriteLine($"Tyvärr du färlorade rätt nummer va: {numberToGuess}");
-                }
+                
             }
 
             
         }
+       
     }
 }
