@@ -12,7 +12,7 @@ namespace NumbersGame
             Console.WriteLine("Tryck 1 för lätt");
             Console.WriteLine("Tryck 2 för mellan");
             Console.WriteLine("Tryck 3 för svårt");
-            Console.WriteLine("Tryck 4 för att avsluta");
+            
             int diff;
 
             while (true)
@@ -77,15 +77,16 @@ namespace NumbersGame
                     }
                     if (guess < numberToGuess)
                     {
+                        wrongGuess++;
                         Console.WriteLine("Tyvärr du gissade för lågt!");
                         Console.WriteLine("Försök igen");
-                        wrongGuess++;
 
                     }
                     else
                     {
-                        Console.WriteLine("Tyvärr du gissade för högt!");
                         wrongGuess++;
+                        Console.WriteLine("Tyvärr du gissade för högt!");
+                        Console.WriteLine("Försök igen");
                     }
                     if (wrongGuess == 5)
                     {
